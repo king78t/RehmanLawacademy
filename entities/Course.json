@@ -1,0 +1,28 @@
+{
+  "name": "Course",
+  "description": "A published or draft paid course offered by RehmanLawAcademy.",
+  "properties": {
+    "slug": { "type": "string", "description": "Stable URL-friendly course identifier" },
+    "title": { "type": "string", "description": "Course title" },
+    "short_description": { "type": "string", "description": "Short course summary for cards" },
+    "description": { "type": "string", "description": "Full course description" },
+    "instructor": { "type": "string", "description": "Instructor or academy name" },
+    "duration_label": { "type": "string", "description": "Human-readable course duration" },
+    "lecture_count": { "type": "number", "description": "Configured number of lectures" },
+    "test_count": { "type": "number", "description": "Configured number of tests" },
+    "currency": { "type": "string", "description": "Course price currency, normally PKR" },
+    "price_pkr": { "type": "number", "description": "Configured course price in Pakistani rupees" },
+    "price_configured": { "type": "boolean", "description": "Whether the administrator has configured a price" },
+    "publication_status": { "type": "string", "description": "draft or published" },
+    "is_published": { "type": "boolean", "description": "Whether the public course card is visible" },
+    "thumbnail_url": { "type": "string", "description": "Optional course thumbnail URL" },
+    "curriculum_summary": { "type": "string", "description": "Public curriculum preview summary" },
+    "sort_order": { "type": "number", "description": "Display order in the course catalog" }
+  },
+  "rls": {
+    "read": {},
+    "create": { "user_condition": { "role": "administrator" } },
+    "update": { "user_condition": { "role": "administrator" } },
+    "delete": { "user_condition": { "role": "administrator" } }
+  }
+}

@@ -1,0 +1,9 @@
+import { ArrowRight, BookOpenCheck, Clock3, LockKeyhole } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ProgressBar } from "@/components/study/ProgressBar";
+import type { SubjectSummary } from "@/lib/study-types";
+
+export function SubjectCard({ subject, active = false, progress = 0 }: { subject: SubjectSummary; active?: boolean; progress?: number }) {
+  if (!active) return <div className="surface flex min-h-[190px] flex-col justify-between p-5 opacity-75"><div className="flex items-start justify-between"><div className="icon-tile bg-slate-100 text-slate-400"><LockKeyhole size={18} /></div><span className="rounded-full bg-slate-100 px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.1em] text-slate-500">Coming soon</span></div><div><h3 className="mt-7 font-display text-xl font-bold text-[#14294d]">{subject.name}</h3><p className="mt-1 text-xs leading-5 text-slate-500">{subject.description}</p></div></div>;
+  return <Link to={`/lat/${subject.slug}`} className="surface surface-hover flex min-h-[220px] flex-col justify-between p-5"><div><div className="flex items-start justify-between"><div className="icon-tile"><BookOpenCheck size={19} /></div><span className="rounded-full bg-[#edf7fd] px-2.5 py-1 text-[.62rem] font-extrabold uppercase tracking-[.1em] text-[#1766a9]">Stage 1</span></div><h3 className="mt-7 font-display text-xl font-bold text-[#14294d]">{subject.name}</h3><p className="mt-1 text-xs leading-5 text-slate-500">{subject.description}</p></div><div className="mt-5"><ProgressBar value={progress} label={`${subject.question_count} published questions`} /><div className="mt-4 flex items-center justify-between text-xs font-bold text-[#1766a9]"><span className="flex items-center gap-1.5"><Clock3 size={14} /> Continue practice</span><ArrowRight size={16} /></div></div></Link>;
+}

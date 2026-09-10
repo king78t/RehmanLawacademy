@@ -1,0 +1,17 @@
+{
+  "name": "Exam",
+  "description": "A law entrance or professional examination catalog entry.",
+  "properties": {
+    "name": { "type": "string", "description": "Display name of the examination" },
+    "slug": { "type": "string", "description": "Stable URL-friendly identifier" },
+    "description": { "type": "string", "description": "Short description for students" },
+    "is_active": { "type": "boolean", "description": "Whether the exam is currently available" },
+    "sort_order": { "type": "number", "description": "Display order" }
+  },
+  "rls": {
+    "read": {},
+    "create": { "user_condition": { "role": "administrator" } },
+    "update": { "user_condition": { "role": "administrator" } },
+    "delete": { "user_condition": { "role": "administrator" } }
+  }
+}

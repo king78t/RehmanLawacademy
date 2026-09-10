@@ -1,0 +1,25 @@
+{
+  "name": "CourseEnrollment",
+  "description": "A manually approved entitlement to a paid course.",
+  "properties": {
+    "student_user_id": { "type": "string", "description": "Authenticated student user id" },
+    "student_email": { "type": "string", "description": "Authenticated student email" },
+    "course_id": { "type": "string", "description": "Enrolled course record id" },
+    "course_slug": { "type": "string", "description": "Enrolled course slug" },
+    "course_title": { "type": "string", "description": "Course title snapshot" },
+    "enrollment_status": { "type": "string", "description": "active, pending, suspended or removed" },
+    "payment_request_id": { "type": "string", "description": "Approved payment request id" },
+    "amount_pkr": { "type": "number", "description": "Approved amount" },
+    "currency": { "type": "string", "description": "Enrollment currency" },
+    "enrolled_at": { "type": "string", "description": "Enrollment record timestamp" },
+    "activated_at": { "type": "string", "description": "Administrator activation timestamp" },
+    "last_activity_at": { "type": "string", "description": "Last protected course activity timestamp" },
+    "expiry_date": { "type": "string", "description": "Optional access expiry timestamp" }
+  },
+  "rls": {
+    "read": { "user_condition": { "role": "administrator" } },
+    "create": { "user_condition": { "role": "administrator" } },
+    "update": { "user_condition": { "role": "administrator" } },
+    "delete": { "user_condition": { "role": "administrator" } }
+  }
+}

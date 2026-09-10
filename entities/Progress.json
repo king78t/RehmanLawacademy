@@ -1,0 +1,22 @@
+{
+  "name": "Progress",
+  "description": "A student's progress summary for one study part.",
+  "properties": {
+    "exam_slug": { "type": "string", "description": "Exam slug" },
+    "subject_slug": { "type": "string", "description": "Subject slug" },
+    "part_slug": { "type": "string", "description": "Part slug" },
+    "total_questions": { "type": "number", "description": "Available question total" },
+    "answered_count": { "type": "number", "description": "Unique questions answered" },
+    "correct_count": { "type": "number", "description": "Unique questions currently correct" },
+    "answered_question_ids": { "type": "array", "description": "Unique answered ids", "items": { "type": "string" } },
+    "correct_question_ids": { "type": "array", "description": "Unique correct ids", "items": { "type": "string" } },
+    "last_question_id": { "type": "string", "description": "Most recently practiced question" },
+    "last_activity_at": { "type": "string", "description": "Most recent activity timestamp" }
+  },
+  "rls": {
+    "create": { "created_by": "{{user.email}}" },
+    "read": { "created_by": "{{user.email}}" },
+    "update": { "created_by": "{{user.email}}" },
+    "delete": { "created_by": "{{user.email}}" }
+  }
+}

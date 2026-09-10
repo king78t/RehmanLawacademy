@@ -1,0 +1,20 @@
+{
+  "name": "WrongQuestion",
+  "description": "A private remedial record for a question answered incorrectly.",
+  "properties": {
+    "question_id": { "type": "string", "description": "Question id" },
+    "exam_slug": { "type": "string", "description": "Exam slug" },
+    "subject_slug": { "type": "string", "description": "Subject slug" },
+    "part_slug": { "type": "string", "description": "Part slug" },
+    "last_answer": { "type": "string", "description": "Most recent wrong answer key" },
+    "times_wrong": { "type": "number", "description": "Number of wrong responses" },
+    "resolved": { "type": "boolean", "description": "Whether the latest response was correct" },
+    "last_attempt_id": { "type": "string", "description": "Latest quiz attempt id when applicable" }
+  },
+  "rls": {
+    "create": { "created_by": "{{user.email}}" },
+    "read": { "created_by": "{{user.email}}" },
+    "update": { "created_by": "{{user.email}}" },
+    "delete": { "created_by": "{{user.email}}" }
+  }
+}

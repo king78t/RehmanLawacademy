@@ -1,0 +1,26 @@
+{
+  "name": "CoursePaymentRequest",
+  "description": "A student request for manual WhatsApp payment review for a paid course.",
+  "properties": {
+    "student_user_id": { "type": "string", "description": "Authenticated student user id" },
+    "student_email": { "type": "string", "description": "Authenticated student email" },
+    "course_id": { "type": "string", "description": "Requested course record id" },
+    "course_slug": { "type": "string", "description": "Requested course slug" },
+    "course_title": { "type": "string", "description": "Course title snapshot" },
+    "amount_pkr": { "type": "number", "description": "Configured amount at request time" },
+    "currency": { "type": "string", "description": "Payment currency" },
+    "payment_provider": { "type": "string", "description": "whatsapp_manual now, future provider later" },
+    "payment_status": { "type": "string", "description": "pending, approved, rejected or refunded" },
+    "transaction_reference": { "type": "string", "description": "Manual payment or provider reference" },
+    "payment_note": { "type": "string", "description": "Student or administrator note" },
+    "requested_at": { "type": "string", "description": "Request timestamp" },
+    "reviewed_at": { "type": "string", "description": "Administrator review timestamp" },
+    "reviewed_by": { "type": "string", "description": "Administrator email that reviewed the request" }
+  },
+  "rls": {
+    "create": { "created_by": "{{user.email}}" },
+    "read": { "user_condition": { "role": "administrator" } },
+    "update": { "user_condition": { "role": "administrator" } },
+    "delete": { "user_condition": { "role": "administrator" } }
+  }
+}

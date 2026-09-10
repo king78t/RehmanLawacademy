@@ -1,0 +1,16 @@
+{
+  "name": "Bookmark",
+  "description": "A student's saved question.",
+  "properties": {
+    "question_id": { "type": "string", "description": "Saved question id" },
+    "exam_slug": { "type": "string", "description": "Exam slug" },
+    "subject_slug": { "type": "string", "description": "Subject slug" },
+    "part_slug": { "type": "string", "description": "Part slug" }
+  },
+  "rls": {
+    "create": { "created_by": "{{user.email}}" },
+    "read": { "created_by": "{{user.email}}" },
+    "update": { "created_by": "{{user.email}}" },
+    "delete": { "created_by": "{{user.email}}" }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "CourseProgress",
+  "description": "Protected lesson completion and resume progress for a paid course enrollment.",
+  "properties": {
+    "student_user_id": { "type": "string", "description": "Authenticated student user id" },
+    "student_email": { "type": "string", "description": "Authenticated student email" },
+    "course_id": { "type": "string", "description": "Course record id" },
+    "course_slug": { "type": "string", "description": "Course slug" },
+    "enrollment_id": { "type": "string", "description": "Active enrollment record id" },
+    "completed_lesson_ids": { "type": "array", "description": "Completed protected lesson ids", "items": { "type": "string" } },
+    "completed_lessons": { "type": "number", "description": "Completed lesson count" },
+    "total_lessons": { "type": "number", "description": "Configured published lesson count" },
+    "progress_percentage": { "type": "number", "description": "Course completion percentage" },
+    "last_lesson_id": { "type": "string", "description": "Most recently opened lesson" },
+    "last_activity_at": { "type": "string", "description": "Last progress timestamp" }
+  },
+  "rls": {
+    "read": { "user_condition": { "role": "administrator" } },
+    "create": { "user_condition": { "role": "administrator" } },
+    "update": { "user_condition": { "role": "administrator" } },
+    "delete": { "user_condition": { "role": "administrator" } }
+  }
+}

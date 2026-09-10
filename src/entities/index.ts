@@ -1,0 +1,20 @@
+import { superdevClient } from "@/lib/superdev/client";
+
+export const User = superdevClient.auth;
+export const Exam = superdevClient.entity("Exam");
+export const Subject = superdevClient.entity("Subject");
+export const Part = superdevClient.entity("Part");
+export const Question = superdevClient.entity("Question");
+export const QuizDefinition = superdevClient.entity("QuizDefinition");
+export const QuizAttempt = superdevClient.entity("QuizAttempt");
+export const QuizAnswer = superdevClient.entity("QuizAnswer");
+export const Bookmark = superdevClient.entity("Bookmark");
+export const WrongQuestion = superdevClient.entity("WrongQuestion");
+export const Progress = superdevClient.entity("Progress");
+export const PracticeAnswer = superdevClient.entity("PracticeAnswer");
+export const Course = superdevClient.entity("Course");
+export const CourseModule = superdevClient.entity("CourseModule");
+export const CourseLesson = superdevClient.entity("CourseLesson");
+export const CoursePaymentRequest = superdevClient.entity("CoursePaymentRequest");
+export const CourseEnrollment = superdevClient.entity("CourseEnrollment");
+export const CourseProgress = superdevClient.entity("CourseProgress");

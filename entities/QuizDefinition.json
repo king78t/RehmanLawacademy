@@ -1,0 +1,22 @@
+{
+  "name": "QuizDefinition",
+  "description": "An administrator-configured quiz blueprint.",
+  "properties": {
+    "title": { "type": "string", "description": "Quiz title" },
+    "exam_slug": { "type": "string", "description": "Exam slug" },
+    "subject_slug": { "type": "string", "description": "Subject slug" },
+    "part_slug": { "type": "string", "description": "Part slug" },
+    "question_count": { "type": "number", "description": "Questions presented" },
+    "time_limit_seconds": { "type": "number", "description": "Configured time limit" },
+    "randomize": { "type": "boolean", "description": "Whether questions are randomized" },
+    "passing_score": { "type": "number", "description": "Configured passing percentage" },
+    "is_published": { "type": "boolean", "description": "Whether students can start it" },
+    "description": { "type": "string", "description": "Student-facing description" }
+  },
+  "rls": {
+    "read": {},
+    "create": { "user_condition": { "role": "administrator" } },
+    "update": { "user_condition": { "role": "administrator" } },
+    "delete": { "user_condition": { "role": "administrator" } }
+  }
+}

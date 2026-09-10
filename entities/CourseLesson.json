@@ -1,0 +1,24 @@
+{
+  "name": "CourseLesson",
+  "description": "A protected lesson and optional private video reference in a paid course.",
+  "properties": {
+    "course_id": { "type": "string", "description": "Parent course record id" },
+    "course_slug": { "type": "string", "description": "Stable parent course slug" },
+    "module_id": { "type": "string", "description": "Parent module record id" },
+    "title": { "type": "string", "description": "Lesson title" },
+    "description": { "type": "string", "description": "Lesson description" },
+    "notes": { "type": "string", "description": "Study notes shown to enrolled students" },
+    "attachment_url": { "type": "string", "description": "Optional protected study material reference" },
+    "video_provider": { "type": "string", "description": "Future-ready video provider name" },
+    "video_reference": { "type": "string", "description": "Private provider or storage reference" },
+    "duration_seconds": { "type": "number", "description": "Lesson duration in seconds" },
+    "sort_order": { "type": "number", "description": "Display order within the module" },
+    "is_published": { "type": "boolean", "description": "Whether the lesson is available to active students" }
+  },
+  "rls": {
+    "read": { "user_condition": { "role": "administrator" } },
+    "create": { "user_condition": { "role": "administrator" } },
+    "update": { "user_condition": { "role": "administrator" } },
+    "delete": { "user_condition": { "role": "administrator" } }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "QuizAttempt",
+  "description": "A student's persisted quiz attempt and result.",
+  "properties": {
+    "quiz_id": { "type": "string", "description": "Quiz definition id" },
+    "title": { "type": "string", "description": "Quiz title at attempt time" },
+    "exam_slug": { "type": "string", "description": "Exam slug" },
+    "subject_slug": { "type": "string", "description": "Subject slug" },
+    "part_slug": { "type": "string", "description": "Part slug" },
+    "question_ids": { "type": "array", "description": "Ordered question ids", "items": { "type": "string" } },
+    "question_count": { "type": "number", "description": "Total questions" },
+    "time_limit_seconds": { "type": "number", "description": "Time limit used" },
+    "started_at": { "type": "string", "description": "Attempt start timestamp" },
+    "submitted_at": { "type": "string", "description": "Submission timestamp" },
+    "status": { "type": "string", "description": "in_progress, completed or timed_out" },
+    "score": { "type": "number", "description": "Correct answer count" },
+    "percentage": { "type": "number", "description": "Percentage score" },
+    "attempted_count": { "type": "number", "description": "Answered questions" },
+    "correct_count": { "type": "number", "description": "Correct answers" },
+    "wrong_count": { "type": "number", "description": "Wrong answers" },
+    "unattempted_count": { "type": "number", "description": "Unanswered questions" },
+    "time_taken_seconds": { "type": "number", "description": "Elapsed time" }
+  },
+  "rls": {
+    "create": { "created_by": "{{user.email}}" },
+    "read": { "created_by": "{{user.email}}" },
+    "update": { "created_by": "{{user.email}}" },
+    "delete": { "created_by": "{{user.email}}" }
+  }
+}

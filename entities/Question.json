@@ -1,0 +1,27 @@
+{
+  "name": "Question",
+  "description": "A multiple-choice question in the study catalog.",
+  "properties": {
+    "exam_slug": { "type": "string", "description": "Exam slug" },
+    "subject_slug": { "type": "string", "description": "Subject slug" },
+    "part_slug": { "type": "string", "description": "Part slug" },
+    "question_text": { "type": "string", "description": "Question prompt" },
+    "option_a": { "type": "string", "description": "Answer option A" },
+    "option_b": { "type": "string", "description": "Answer option B" },
+    "option_c": { "type": "string", "description": "Answer option C" },
+    "option_d": { "type": "string", "description": "Answer option D" },
+    "correct_answer": { "type": "string", "description": "Correct answer key A, B, C or D" },
+    "explanation": { "type": "string", "description": "Learning explanation shown after answering" },
+    "difficulty": { "type": "string", "description": "Difficulty label" },
+    "is_published": { "type": "boolean", "description": "Whether students can practice it" },
+    "starter_review": { "type": "boolean", "description": "Whether it is provisional starter content" },
+    "review_label": { "type": "string", "description": "Visible review label" },
+    "sort_order": { "type": "number", "description": "Question order within the part" }
+  },
+  "rls": {
+    "read": {},
+    "create": { "user_condition": { "role": "administrator" } },
+    "update": { "user_condition": { "role": "administrator" } },
+    "delete": { "user_condition": { "role": "administrator" } }
+  }
+}

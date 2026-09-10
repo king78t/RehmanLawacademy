@@ -1,0 +1,17 @@
+{
+  "name": "QuizAnswer",
+  "description": "A student's answer to one question in an attempt.",
+  "properties": {
+    "attempt_id": { "type": "string", "description": "Parent quiz attempt id" },
+    "question_id": { "type": "string", "description": "Answered question id" },
+    "selected_answer": { "type": "string", "description": "Selected answer key" },
+    "is_correct": { "type": "boolean", "description": "Whether the answer was correct" },
+    "answered_at": { "type": "string", "description": "Answer timestamp" }
+  },
+  "rls": {
+    "create": { "created_by": "{{user.email}}" },
+    "read": { "created_by": "{{user.email}}" },
+    "update": { "created_by": "{{user.email}}" },
+    "delete": { "created_by": "{{user.email}}" }
+  }
+}

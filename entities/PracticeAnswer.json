@@ -1,0 +1,20 @@
+{
+  "name": "PracticeAnswer",
+  "description": "A student's persisted answer while practicing a study part.",
+  "properties": {
+    "question_id": { "type": "string", "description": "Question id" },
+    "exam_slug": { "type": "string", "description": "Exam slug" },
+    "subject_slug": { "type": "string", "description": "Subject slug" },
+    "part_slug": { "type": "string", "description": "Part slug" },
+    "practice_session": { "type": "string", "description": "Stable practice session key" },
+    "selected_answer": { "type": "string", "description": "Selected answer key" },
+    "is_correct": { "type": "boolean", "description": "Whether the answer was correct" },
+    "answered_at": { "type": "string", "description": "Answer timestamp" }
+  },
+  "rls": {
+    "create": { "created_by": "{{user.email}}" },
+    "read": { "created_by": "{{user.email}}" },
+    "update": { "created_by": "{{user.email}}" },
+    "delete": { "created_by": "{{user.email}}" }
+  }
+}
