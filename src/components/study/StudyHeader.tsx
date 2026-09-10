@@ -5,8 +5,10 @@ import { BrandLogo } from "@/components/study/BrandLogo";
 
 const navItems = [
   { label: "Home", to: "/" },
-  { label: "LAT preparation", to: "/lat" },
+  { label: "LAT Preparation", to: "/lat" },
   { label: "Paid Courses", to: "/paid-courses" },
+  { label: "About", to: "/about" },
+  { label: "Contact", to: "/contact" },
   { label: "Results / Progress", to: "/dashboard" },
   { label: "Saved", to: "/saved" },
   { label: "History", to: "/history" },

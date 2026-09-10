@@ -1,0 +1,6 @@
+{
+  "name": "RehmanLawAcademy",
+  "description": "Prepare Smart. Practice More. Succeed in LAT & Law GAT. Founded by Adv. AbdulRehman Yaseen, High Court Advocate.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

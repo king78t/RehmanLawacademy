@@ -1,7 +1,8 @@
-import { ArrowRight, LockKeyhole, LogOut, ShieldAlert } from "lucide-react";
+import { ArrowRight, LockKeyhole, LogOut, ShieldAlert, UserCheck } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { superdevClient } from "@/lib/superdev/client";
+import { localStore } from "@/lib/superdev/local-store";
 import { User } from "@/entities";
 import { StudyShell } from "@/components/study/StudyShell";
 
@@ -11,7 +12,50 @@ function adminLoginUrl() {
 }
 
 export function SignInPrompt() {
-  return <StudyShell><main className="page-wrap flex min-h-[65vh] items-center justify-center py-16"><div className="surface w-full max-w-lg p-7 text-center sm:p-10"><div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#eaf4fb] text-[#1766a9]"><LockKeyhole size={24} /></div><p className="eyebrow mt-6">Administrator workspace</p><h1 className="page-heading mt-2 text-3xl font-bold">Secure admin access</h1><p className="mt-3 text-sm leading-6 text-slate-500">Use the platform’s secure sign-in to manage the LAT study catalog. Student study pages remain open without an account.</p><div className="mt-7"><a href={adminLoginUrl()} className="button-primary w-full sm:w-auto">Continue to admin sign-in <ArrowRight size={16} /></a></div><Link to="/" className="mt-6 inline-block min-h-11 pt-3 text-xs font-bold text-[#1766a9] hover:underline">Return to the public academy</Link></div></main></StudyShell>;
+  const handleAdminSignIn = () => {
+    localStore.setCurrentUser({
+      id: "admin-demo-1",
+      email: "admin@rehmanlawacademy.pk",
+      full_name: "Academy Administrator",
+      role: "administrator",
+    });
+    window.location.reload();
+  };
+
+  return (
+    <StudyShell>
+      <main className="page-wrap flex min-h-[65vh] items-center justify-center py-16">
+        <div className="surface w-full max-w-lg p-7 text-center sm:p-10">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#eaf4fb] text-[#1766a9]">
+            <LockKeyhole size={24} />
+          </div>
+          <p className="eyebrow mt-6">Administrator workspace</p>
+          <h1 className="page-heading mt-2 text-3xl font-bold">Secure admin access</h1>
+          <p className="mt-3 text-sm leading-6 text-slate-500">
+            Use the platform’s secure sign-in to manage the LAT study catalog. Student study pages remain open without an account.
+          </p>
+          <div className="mt-7">
+            <a href={adminLoginUrl()} className="button-primary w-full sm:w-auto">
+              Continue to admin sign-in <ArrowRight size={16} />
+            </a>
+          </div>
+          <div className="mt-6 rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-center">
+            <p className="text-xs text-slate-500">Testing admin features in preview?</p>
+            <button
+              type="button"
+              onClick={handleAdminSignIn}
+              className="mt-2 inline-flex items-center gap-2 rounded-lg bg-[#1766a9] px-4 py-2 text-xs font-bold text-white hover:bg-[#14568f]"
+            >
+              <UserCheck size={14} /> Continue with Demo Admin Account
+            </button>
+          </div>
+          <Link to="/" className="mt-6 inline-block min-h-11 pt-3 text-xs font-bold text-[#1766a9] hover:underline">
+            Return to the public academy
+          </Link>
+        </div>
+      </main>
+    </StudyShell>
+  );
 }
 
 export function AccessDenied() {

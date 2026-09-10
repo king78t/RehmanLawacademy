@@ -3,9 +3,13 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { BrandingBadge } from "./components/BrandingBadge";
 import AnswerReview from "./pages/AnswerReview";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import LawGat from "./pages/LawGat";
+import Information from "./pages/Information";
 import Dashboard from "./pages/Dashboard";
 import Index from "./pages/Index";
 import LatPreparation from "./pages/LatPreparation";
@@ -29,6 +33,27 @@ import PaidLesson from "./pages/paid/PaidLesson";
 
 const queryClient = new QueryClient();
 
+function PathNormalizer() {
+  const location = useLocation();
+  const { pathname, search, hash } = location;
+
+  const lower = pathname.toLowerCase();
+  const trimmed = lower.replace(/\/+$/, "");
+
+  // If path is /home or /home/ (case-insensitive) -> redirect to '/'
+  if (trimmed === "/home" || lower === "/home") {
+    return <Navigate to={`/${search}${hash}`} replace />;
+  }
+
+  // Handle trailing slash (e.g., /lat/ -> /lat, /about/ -> /about)
+  if (pathname.length > 1 && pathname.endsWith("/")) {
+    const clean = pathname.replace(/\/+$/, "");
+    return <Navigate to={`${clean}${search}${hash}`} replace />;
+  }
+
+  return null;
+}
+
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
@@ -36,8 +61,19 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <PathNormalizer />
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/home" element={<Navigate to="/" replace />} />
+            <Route path="/Home" element={<Navigate to="/" replace />} />
+            <Route path="/home/*" element={<Navigate to="/" replace />} />
+            <Route path="/Home/*" element={<Navigate to="/" replace />} />
+            <Route path="/index" element={<Navigate to="/" replace />} />
+            <Route path="/index.html" element={<Navigate to="/" replace />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/law-gat" element={<LawGat />} />
+            <Route path="/information" element={<Information />} />
             <Route path="/lat" element={<LatPreparation />} />
             <Route path="/lat/pakistan-studies" element={<PakistanStudies />} />
             <Route path="/lat/pakistan-studies/part-1" element={<Part1Practice />} />

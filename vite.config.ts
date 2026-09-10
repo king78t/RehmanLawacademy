@@ -8,14 +8,9 @@ process.env.SUPERDEV_SANDBOX = "true";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",
-    port: 8080,
-    allowedHosts: [
-      ".mysuperdev.app",
-      ".superdev.run",
-      ".fly.dev",
-      ".vercel.run",
-    ],
+    host: "0.0.0.0",
+    port: 3000,
+    allowedHosts: true,
     proxy: {
       "/api/integrations": {
         target: "https://superdev.build",

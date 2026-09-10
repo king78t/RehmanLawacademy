@@ -55,41 +55,118 @@ export interface PaidProgress {
   last_activity_at?: string;
 }
 
+export interface PaymentSettings {
+  id: string;
+  bank_name: string;
+  account_title: string;
+  account_number: string;
+  iban: string;
+  bank_instructions: string;
+  easypaisa_title: string;
+  easypaisa_number: string;
+  easypaisa_instructions: string;
+  jazzcash_title: string;
+  jazzcash_number: string;
+  jazzcash_instructions: string;
+  whatsapp_number: string;
+  whatsapp_url: string;
+  whatsapp_message: string;
+  updated_at?: string;
+}
+
 export interface PaidPaymentRequest {
   id: string;
+  student_user_id?: string;
+  student_name?: string;
+  student_email: string;
+  student_mobile?: string;
   course_id: string;
   course_slug: string;
   course_title: string;
   amount_pkr: number;
   currency: string;
-  payment_provider: string;
+  payment_method: "bank" | "easypaisa" | "jazzcash" | string;
+  payment_provider?: string;
   payment_status: "pending" | "approved" | "rejected" | "refunded" | string;
   transaction_reference?: string;
+  proof_image?: string;
   payment_note?: string;
+  rejection_reason?: string;
   requested_at?: string;
+  created_at?: string;
+  updated_at?: string;
   reviewed_at?: string;
+  reviewed_by?: string;
 }
 
 export interface PaidEnrollment {
   id: string;
+  student_user_id?: string;
+  student_email: string;
+  student_name?: string;
+  student_mobile?: string;
   course_id: string;
   course_slug: string;
   course_title: string;
-  enrollment_status: "active" | "pending" | "suspended" | "removed" | string;
+  enrollment_status: "active" | "pending" | "suspended" | "rejected" | "removed" | string;
   payment_request_id?: string;
   amount_pkr?: number;
   currency?: string;
   enrolled_at?: string;
   activated_at?: string;
+  approved_by?: string;
   last_activity_at?: string;
 }
 
+export interface CourseTestQuestion {
+  id: string;
+  test_id: string;
+  question_text: string;
+  option_a: string;
+  option_b: string;
+  option_c: string;
+  option_d: string;
+  correct_answer: "A" | "B" | "C" | "D";
+  explanation?: string;
+  sort_order?: number;
+}
+
+export interface CourseTest {
+  id: string;
+  course_id: string;
+  course_slug?: string;
+  title: string;
+  description: string;
+  time_limit_minutes: number;
+  passing_score: number;
+  is_published: boolean;
+  question_count?: number;
+  questions?: CourseTestQuestion[];
+}
+
+export interface CourseTestResult {
+  id: string;
+  test_id: string;
+  test_title: string;
+  course_id: string;
+  course_slug?: string;
+  student_email: string;
+  student_user_id?: string;
+  score: number;
+  total_questions: number;
+  percentage: number;
+  passed: boolean;
+  submitted_at: string;
+  answers?: Record<string, string>;
+}
+
 export interface PaidDashboard {
-  user: { id: string; full_name: string; email: string };
+  user: { id: string; full_name: string; email: string; mobile_number?: string; role?: string };
   courses: PaidCourse[];
   payments: PaidPaymentRequest[];
   enrollments: PaidEnrollment[];
   progress: PaidProgress[];
+  test_results?: CourseTestResult[];
 }
 
 export function formatPkr(course?: Pick<PaidCourse, "price_pkr" | "price_configured" | "currency"> | null) {
