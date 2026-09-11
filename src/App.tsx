@@ -24,6 +24,7 @@ import WrongQuestions from "./pages/WrongQuestions";
 import AdminCatalog from "./pages/admin/Catalog";
 import AdminPaidCourses from "./pages/admin/PaidCourses";
 import AdminQuestions from "./pages/admin/Questions";
+import AdminDashboard from "./pages/AdminDashboard";
 import PaidCourses from "./pages/paid/PaidCourses";
 import PublicCourseDetail from "./pages/paid/PublicCourseDetail";
 import PaidPurchase from "./pages/paid/PaidPurchase";
@@ -91,7 +92,8 @@ const App = () => (
             <Route path="/my-courses" element={<StudentDashboard />} />
             <Route path="/my-courses/:courseSlug" element={<MyCourseDetail />} />
             <Route path="/my-courses/:courseSlug/lessons/:lessonId" element={<PaidLesson />} />
-            <Route path="/admin" element={<Navigate to="/admin/questions" replace />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/questions" element={<AdminQuestions />} />
             <Route path="/admin/catalog" element={<AdminCatalog />} />
             <Route path="/admin/paid-courses" element={<AdminPaidCourses />} />

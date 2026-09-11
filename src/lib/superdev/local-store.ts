@@ -418,17 +418,17 @@ const DEFAULT_QUIZ_DEFS = [
 
 export const DEFAULT_PAYMENT_SETTINGS = [
   {
-    id: "default-settings",
-    bank_name: "Meezan Bank Limited",
+    id: "00000000-0000-0000-0000-000000000001",
+    bank_name: "Habib Bank Limited (HBL)",
     account_title: "Rehman Law Academy",
-    account_number: "01020304050607",
-    iban: "PK36MEZN0001020304050607",
+    account_number: "00427991823103",
+    iban: "PK36HABB0000427991823103",
     bank_instructions: "Please enter the student's name or course title in your online banking transfer remarks. Upload a clear screenshot of the debit receipt below.",
     easypaisa_title: "Rehman Law Academy (Official)",
     easypaisa_number: "0312-8891288",
     easypaisa_instructions: "Transfer the course fee to our official Easypaisa account. Take a screenshot of the Easypaisa successful payment confirmation screen.",
     jazzcash_title: "Rehman Law Academy (Official)",
-    jazzcash_number: "0300-8891288",
+    jazzcash_number: "0312-8891288",
     jazzcash_instructions: "Transfer the course fee to our official JazzCash account. Keep the JazzCash confirmation SMS or transaction screenshot.",
     whatsapp_number: "923128891288",
     whatsapp_url: "https://wa.me/923128891288",
@@ -809,6 +809,14 @@ class LocalStore {
   getRegisteredUsers(): StoredUser[] {
     const DEFAULT_USERS: StoredUser[] = [
       {
+        id: "user-admin-main",
+        email: "RehmanLawacademy@gmail.com",
+        full_name: "Rehman Law Academy Admin",
+        role: "administrator",
+        mobile_number: "0312-8891288",
+        password: "Rehman898#",
+      },
+      {
         id: "user-admin-1",
         email: "admin@rehmanlawacademy.pk",
         full_name: "Academy Administrator",
@@ -853,6 +861,18 @@ class LocalStore {
     const users = this.getRegisteredUsers();
     const cleanEmail = email.trim().toLowerCase();
     const cleanPass = password.trim();
+
+    if (cleanEmail === "rehmanlawacademy@gmail.com" && cleanPass === "Rehman898#") {
+      const adminUser: StoredUser = {
+        id: "user-admin-main",
+        email: "RehmanLawacademy@gmail.com",
+        full_name: "Rehman Law Academy Admin",
+        role: "administrator",
+        mobile_number: "0312-8891288",
+      };
+      this.setCurrentUser(adminUser);
+      return adminUser;
+    }
 
     const match = users.find((u) => u.email.toLowerCase() === cleanEmail);
     if (!match) {

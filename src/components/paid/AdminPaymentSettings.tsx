@@ -10,7 +10,11 @@ import {
   User,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { loadPaymentSettings, updatePaymentSettings } from "@/lib/paid-course-data";
+import {
+  loadPaymentSettings,
+  logDatabaseFetchFailure,
+  updatePaymentSettings,
+} from "@/lib/paid-course-data";
 import type { PaymentSettings } from "@/lib/paid-course-types";
 import { getBrandConfig, saveBrandConfig } from "@/lib/brand-config";
 
@@ -29,6 +33,7 @@ export function AdminPaymentSettings() {
         setLoading(false);
       })
       .catch((err) => {
+        logDatabaseFetchFailure("AdminPaymentSettings loadPaymentSettings", err);
         setError("Failed to load payment settings.");
         setLoading(false);
       });
@@ -54,6 +59,7 @@ export function AdminPaymentSettings() {
       setSavedSuccess(true);
       setTimeout(() => setSavedSuccess(false), 4000);
     } catch (err: any) {
+      logDatabaseFetchFailure("AdminPaymentSettings handleSave updatePaymentSettings", err, { settingsId: settings.id });
       setError(err?.message || "Failed to update payment settings.");
     } finally {
       setSaving(false);

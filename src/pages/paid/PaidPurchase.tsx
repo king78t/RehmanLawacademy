@@ -29,8 +29,10 @@ import { getBrandConfig } from "@/lib/brand-config";
 import {
   getActiveStudent,
   loadPaymentDetails,
+  logDatabaseFetchFailure,
   submitPaymentProof,
 } from "@/lib/paid-course-data";
+import { FALLBACK_COURSES, FALLBACK_PAYMENT_SETTINGS } from "@/data/mockCourses";
 import type {
   PaidCourse,
   PaidPaymentRequest,
@@ -101,17 +103,31 @@ function PurchaseContent({ courseSlug }: { courseSlug: string }) {
     setStatus("loading");
     try {
       const data = await loadPaymentDetails(courseSlug);
-      setCourse(data.course);
-      setSettings(data.settings);
-      setPayment(data.payment);
-      setEnrollment(data.enrollment);
+      const effectiveCourse =
+        data?.course ||
+        FALLBACK_COURSES.find((c) => c.slug === courseSlug) ||
+        (FALLBACK_COURSES[0] as unknown as PaidCourse);
+      const effectiveSettings =
+        data?.settings && data.settings.bank_name
+          ? data.settings
+          : (FALLBACK_PAYMENT_SETTINGS as PaymentSettings);
+
+      setCourse(effectiveCourse);
+      setSettings(effectiveSettings);
+      setPayment(data?.payment || null);
+      setEnrollment(data?.enrollment || null);
       if (student?.mobile_number) {
         setSenderMobile(student.mobile_number);
       }
       setStatus("ready");
     } catch (error) {
-      console.error("Failed to load payment details:", error);
-      setStatus("error");
+      logDatabaseFetchFailure("PaidPurchase load (course details & payment settings)", error, { courseSlug });
+      const fallbackCourse =
+        FALLBACK_COURSES.find((c) => c.slug === courseSlug) ||
+        (FALLBACK_COURSES[0] as unknown as PaidCourse);
+      setCourse(fallbackCourse as unknown as PaidCourse);
+      setSettings(FALLBACK_PAYMENT_SETTINGS as PaymentSettings);
+      setStatus("ready");
     }
   }, [courseSlug, student?.mobile_number]);
 

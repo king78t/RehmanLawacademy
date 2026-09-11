@@ -1,3 +1,13 @@
-import { superdevClient } from "@/lib/superdev/client";
+import { supabase } from "@/lib/supabaseClient";
 
-export const courseAccess = superdevClient.functions.courseAccess;
+export async function courseAccess(payload: any) {
+  const { data, error } = await supabase.functions.invoke("course-access", {
+    body: payload,
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}

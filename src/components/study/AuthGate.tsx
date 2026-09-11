@@ -1,18 +1,42 @@
 import { ArrowRight, LockKeyhole, LogOut, ShieldAlert, UserCheck } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { superdevClient } from "@/lib/superdev/client";
 import { localStore } from "@/lib/superdev/local-store";
+import { supabase } from "@/lib/supabaseClient";
 import { User } from "@/entities";
 import { StudyShell } from "@/components/study/StudyShell";
 
-function adminLoginUrl() {
-  const from = encodeURIComponent(window.location.href);
-  return (superdevClient.auth.client.options.loginUrl + "&from_url=" + from).replace("/api", "");
-}
-
 export function SignInPrompt() {
-  const handleAdminSignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleAdminSignIn = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setLoading(true);
+    setError(null);
+    try {
+      const signInEmail = email.trim() || "admin@rehmanlawacademy.pk";
+      const signInPassword = password.trim() || "admin123";
+
+      const res = await supabase.auth.signInWithPassword({
+        email: signInEmail,
+        password: signInPassword,
+      });
+
+      if (res.error) {
+        throw res.error;
+      }
+      window.location.reload();
+    } catch (err: any) {
+      setError(err?.message || "Failed to sign in as administrator.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleQuickDemoAdmin = () => {
     localStore.setCurrentUser({
       id: "admin-demo-1",
       email: "admin@rehmanlawacademy.pk",
@@ -34,19 +58,54 @@ export function SignInPrompt() {
           <p className="mt-3 text-sm leading-6 text-slate-500">
             Use the platform’s secure sign-in to manage the LAT study catalog. Student study pages remain open without an account.
           </p>
-          <div className="mt-7">
-            <a href={adminLoginUrl()} className="button-primary w-full sm:w-auto">
-              Continue to admin sign-in <ArrowRight size={16} />
-            </a>
-          </div>
+          <form onSubmit={handleAdminSignIn} className="mt-6 space-y-3 text-left">
+            {error && (
+              <div className="rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700">
+                {error}
+              </div>
+            )}
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600" htmlFor="admin-email">
+                Admin Email
+              </label>
+              <input
+                id="admin-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@rehmanlawacademy.pk"
+                className="mt-1 h-10 w-full rounded-lg border border-slate-200 px-3 text-xs outline-none focus:border-[#1766a9]"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600" htmlFor="admin-password">
+                Password
+              </label>
+              <input
+                id="admin-password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="mt-1 h-10 w-full rounded-lg border border-slate-200 px-3 text-xs outline-none focus:border-[#1766a9]"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="button-primary !mt-4 w-full text-xs font-bold"
+            >
+              {loading ? "Signing in..." : "Sign in to Admin Portal"} <ArrowRight size={15} />
+            </button>
+          </form>
           <div className="mt-6 rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-center">
-            <p className="text-xs text-slate-500">Testing admin features in preview?</p>
+            <p className="text-xs text-slate-500">Fast preview testing:</p>
             <button
               type="button"
-              onClick={handleAdminSignIn}
+              onClick={handleQuickDemoAdmin}
               className="mt-2 inline-flex items-center gap-2 rounded-lg bg-[#1766a9] px-4 py-2 text-xs font-bold text-white hover:bg-[#14568f]"
             >
-              <UserCheck size={14} /> Continue with Demo Admin Account
+              <UserCheck size={14} /> Quick-Fill Demo Admin Account
             </button>
           </div>
           <Link to="/" className="mt-6 inline-block min-h-11 pt-3 text-xs font-bold text-[#1766a9] hover:underline">

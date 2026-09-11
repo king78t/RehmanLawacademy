@@ -99,11 +99,11 @@ Message: ${message || "I want to inquire about upcoming sessions."}`;
                 For academic inquiries, formal verifications, and student records.
               </p>
               <p className="mt-3 font-mono text-xs font-bold break-all text-[#14294d]">
-                {email}
+                {email.address}
               </p>
             </div>
             <a
-              href={`mailto:${email}`}
+              href={email.mailto || `mailto:${email.address}`}
               className="button-secondary mt-5 inline-flex w-full items-center justify-center gap-2 text-xs font-bold text-[#1766a9]"
             >
               <Mail size={15} /> Send Email
